@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -22,9 +22,9 @@ public class TaskDetail {
     @Column(name = "description")
     private String description;
     @Column(name="created_at")
-    private Date createdAt;
+    private LocalDateTime createdAt;
     @Column(name="updated_at")
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
     @Column(name = "comment")
     private String comment;
     @Column(name = "comment_by")
