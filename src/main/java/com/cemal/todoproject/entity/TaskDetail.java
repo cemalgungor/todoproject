@@ -1,6 +1,7 @@
 package com.cemal.todoproject.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,12 +9,14 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 
-@Getter
-@Setter
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @Table(name = "TASK_MODEL_DETAIL")
 public class TaskDetail {
     @Id
@@ -21,15 +24,13 @@ public class TaskDetail {
     private Long id;
     @Column(name = "description")
     private String description;
-    @Column(name="created_at")
-    private LocalDateTime createdAt;
-    @Column(name="updated_at")
-    private LocalDateTime updatedAt;
+    @Column(name="created_at" ,columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Date createdAt;
+    @Column(name="updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Date updatedAt;
     @Column(name = "comment")
     private String comment;
     @Column(name = "comment_by")
     private String commentBy;
-    @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "task_id")
-    private Task task;
+
 }

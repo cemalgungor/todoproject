@@ -2,11 +2,12 @@ package com.cemal.todoproject.entity;
 
 
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.mapping.Set;
+
 
 import javax.persistence.*;
 
@@ -25,12 +26,7 @@ public class Task {
     @Enumerated
     @Column(name = "task_status")
     private TaskStatus taskStatus;
-    @JoinColumn(name = "detail_id")
-    @OneToOne
-    private TaskDetail detailId;
-    @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private User user;
-
-
+    @OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+    @JoinColumn(name = "task_detail_id", referencedColumnName = "id")
+    private TaskDetail taskDetail;
 }

@@ -23,7 +23,7 @@ public class User {
     private String username;
     @Column(name = "password")
     private String password;
-    @OneToMany(cascade=CascadeType.ALL)
-    @JoinColumn(name = "task_id")
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "task_id" ,referencedColumnName = "id")
     private List<Task> task;
 }
