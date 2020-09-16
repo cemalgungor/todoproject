@@ -24,10 +24,8 @@ public class TaskDetail {
     private Long id;
     @Column(name = "description")
     private String description;
-    @Column(name="created_at" ,columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name="created_at" )
     private Date createdAt;
-    @Column(name="updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private Date updatedAt;
     @Column(name = "comment")
     private String comment;
     @Column(name = "comment_by")
