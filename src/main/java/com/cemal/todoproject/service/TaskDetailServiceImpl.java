@@ -1,6 +1,7 @@
 package com.cemal.todoproject.service;
 
 import com.cemal.todoproject.entity.TaskDetail;
+import com.cemal.todoproject.exception.NotFoundException;
 import com.cemal.todoproject.repository.ITaskDetailRepo;
 import com.cemal.todoproject.repository.ITaskRepo;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class TaskDetailServiceImpl implements ITaskDetailService {
@@ -40,8 +42,11 @@ public class TaskDetailServiceImpl implements ITaskDetailService {
 
     @Override
     public TaskDetail getTaskDetailByIdWithDetails(Long id) {
-       TaskDetail taskDetail=taskDetailRepo.getOne(id);
-        return taskDetail;
+       Optional<TaskDetail> getTaskDetail=taskDetailRepo.findById(id);
+        if (!getTaskDetail.isPresent()) {
+            throw new NotFoundException("Task not found with id " + id);
+        }
+        return getTaskDetail.get();
     }
 
     @Override
