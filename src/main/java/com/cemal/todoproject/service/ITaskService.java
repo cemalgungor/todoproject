@@ -9,4 +9,5 @@ public interface ITaskService {
      Task addTask(Task task);
      Boolean deleteTask(Long id);
      Task updateTask(Task task, Long id);
+     Task getTaskById(Long id);
 }

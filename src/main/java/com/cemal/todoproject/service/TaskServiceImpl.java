@@ -3,10 +3,11 @@ package com.cemal.todoproject.service;
 import com.cemal.todoproject.entity.Task;
 import com.cemal.todoproject.entity.TaskDetail;
 import com.cemal.todoproject.repository.ITaskRepo;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.cemal.todoproject.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TaskServiceImpl implements ITaskService {
@@ -24,6 +25,7 @@ public class TaskServiceImpl implements ITaskService {
         return taskRepo.findAll();
     }
 
+
     @Override
     public Task addTask(Task task) {
         TaskDetail td = new TaskDetail();
@@ -36,7 +38,7 @@ public class TaskServiceImpl implements ITaskService {
     public Boolean deleteTask(Long id) {
         taskRepo.deleteById(id);
         if(taskRepo.findById(id).equals(id)) {
-            return null;
+            throw new NotFoundException("Task not delete with id " + id);
         }
         return true;
     }
@@ -48,5 +50,14 @@ public class TaskServiceImpl implements ITaskService {
         taskupdate.setTaskStatus(task.getTaskStatus());
         taskupdate.setTitle(task.getTitle());
         return taskRepo.save(taskupdate);
+    }
+
+    @Override
+    public Task getTaskById(Long id) {
+        Optional<Task> getTask= taskRepo.findById(id);
+       if (!getTask.isPresent()) {
+           throw new NotFoundException("Task not found with id " + id);
+       }
+       return getTask.get();
     }
 }

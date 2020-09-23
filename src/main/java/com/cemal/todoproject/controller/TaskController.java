@@ -27,6 +27,12 @@ public class TaskController {
         return ResponseEntity.ok(tasks);
 
     }
+    @GetMapping("/task/{id}")
+    public ResponseEntity<Task> getTaskById(@PathVariable(value = "id", required = true)  Long id) {
+        Task task = taskService.getTaskById(id);
+        return ResponseEntity.ok(task);
+
+    }
 
     @PostMapping("/addTask")
     public ResponseEntity<Task> addTasks(@Validated @RequestBody Task task) {
