@@ -3,6 +3,7 @@ package com.cemal.todoproject.entity;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,7 @@ public class Task {
     @Enumerated
     @Column(name = "task_status")
     private TaskStatus taskStatus;
+    @JsonIgnoreProperties ({"hibernateLazyInitializer", "handler"})
     @OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     @JoinColumn(name = "task_detail_id", referencedColumnName = "id")
     private TaskDetail taskDetail;

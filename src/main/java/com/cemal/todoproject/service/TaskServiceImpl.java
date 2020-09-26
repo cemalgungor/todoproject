@@ -2,6 +2,7 @@ package com.cemal.todoproject.service;
 
 import com.cemal.todoproject.entity.Task;
 import com.cemal.todoproject.entity.TaskDetail;
+import com.cemal.todoproject.entity.TaskStatus;
 import com.cemal.todoproject.repository.ITaskRepo;
 import com.cemal.todoproject.exception.NotFoundException;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,7 @@ public class TaskServiceImpl implements ITaskService {
         TaskDetail td = new TaskDetail();
         td.setId(task.getId());
         task.setTaskDetail(td);
+        task.setTaskStatus(TaskStatus.TODO);
         return taskRepo.save(task);
     }
 
