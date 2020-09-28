@@ -55,6 +55,18 @@ public class TaskServiceImpl implements ITaskService {
     }
 
     @Override
+    public Task updateTaskStatus(Long id, TaskStatus taskStatus) {
+        Task taskupdate= taskRepo.getOne(id);
+        if(taskStatus.equals(TaskStatus.TODO)) {
+            taskupdate.setTaskStatus(TaskStatus.DOING);
+        }
+       else
+           taskupdate.setTaskStatus(TaskStatus.DONE);
+
+        return taskRepo.save(taskupdate);
+    }
+
+    @Override
     public Task getTaskById(Long id) {
         Optional<Task> getTask= taskRepo.findById(id);
        if (!getTask.isPresent()) {

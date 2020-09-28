@@ -26,8 +26,17 @@ export class TaskService {
         this.httpOptions).pipe(catchError(this.formatError));
 
   }
-  addTask(task: ITask): Observable<any> {
-    return this.http.post( 'http://localhost:8080/api/addTask', task, this.httpOptions);
+  addTask(task: string): Observable<any> {
+    const body = { title:task };
+    return this.http.post( 'http://localhost:8080/api/addTask',  body , this.httpOptions);
+  }
+  deleteTask(id: number): Observable<any> {
+
+    return this.http.delete( 'http://localhost:8080/api/delete/'+id,  this.httpOptions);
+  }
+  updateTaskStatus(id: number, taskStatus:number): Observable<any> {
+    const body = { taskStatus:taskStatus };
+    return this.http.put( 'http://localhost:8080/api/updateStatus/'+id+"/"+taskStatus,  this.httpOptions);
   }
 
   private formatError(error: any) {
