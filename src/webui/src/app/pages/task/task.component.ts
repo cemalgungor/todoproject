@@ -3,6 +3,7 @@ import {ITask} from "../../model/task-model";
 import {HttpResponse} from "@angular/common/http";
 import {TaskService} from "../../service/task.service";
 import {map} from "rxjs/operators";
+import {TaskStatusModel} from "../../model/task-status-model";
 
 @Component({
   selector: 'app-task',
@@ -36,14 +37,38 @@ export class TaskComponent implements OnInit {
 
   }
   addTask(task): void{
-
+     console.log(task);
     this.taskService
       .addTask(task)
       .subscribe(task => this.task.push(task) ,  error => { console.log(error) });
 
   }
+  updateTaskStatus(id:number,taskStatus:TaskStatusModel): void{
+
+    this.taskService
+      .updateTaskStatus(id,taskStatus)
+      .subscribe((data)=>{
+          const deletedTask = this.task.find(x => x.id === id);
+          console.log(deletedTask);
+          this.task.splice(this.task.indexOf(deletedTask), 1);
+          console.log(deletedTask);
+          this.task.push(data);
+          console.log(data);
 
 
+        }
+      );
+
+  }
+  deleteTask(id:number) {
+    return this.taskService.deleteTask(id).subscribe( (data)=>{
+    const deletedTask = this.task.find(x => x.id === id);
+    console.log(deletedTask);
+    this.task.splice(this.task.indexOf(deletedTask), 1);
+
+  }
+    );
+  }
 
 
 }
